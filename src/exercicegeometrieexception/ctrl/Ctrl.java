@@ -28,7 +28,7 @@ public class Ctrl implements ICtrlIhm {
         double valueAreaDouble = Double.parseDouble(valueArea);
         double valueLongueurDouble = Double.parseDouble(valueLongueur);
         refIhm.afficheResultatRectangle(String.valueOf(refWorker.calcLargeurFromRectangle(valueAreaDouble, valueLongueurDouble)));
-        }catch(Exception ex){
+        } catch (Exception ex) {
             if (ex.getMessage().contains(valueArea)) {
                 refIhm.afficheMessage(
                         "Veuillez entrer une valeur valide pour l'aire du rectangle ( " + valueArea + " invalide )");
