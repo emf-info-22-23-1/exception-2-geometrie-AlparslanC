@@ -24,18 +24,28 @@ public class Ctrl implements ICtrlIhm {
 
     @Override
     public void selectCalcLargeur(String valueArea, String valueLongueur) {
-        try{
-        double valueAreaDouble = Double.parseDouble(valueArea);
-        double valueLongueurDouble = Double.parseDouble(valueLongueur);
-        refIhm.afficheResultatRectangle(String.valueOf(refWorker.calcLargeurFromRectangle(valueAreaDouble, valueLongueurDouble)));
-        } catch (Exception ex) {
-            if (ex.getMessage().contains(valueArea)) {
-                refIhm.afficheMessage(
-                        "Veuillez entrer une valeur valide pour l'aire du rectangle ( " + valueArea + " invalide )");
-            } else if (ex.getMessage().contains(valueLongueur)) {
-                refIhm.afficheMessage("Veuillez entrer une valeur valide pour la longeur du rectangle ( " + valueLongueur + " invalide )");
-            }
+
+        double valueAreaDouble = 0.0;
+        double valueLongueurDouble = 0.0;
+        
+        try {
+            valueAreaDouble = Double.parseDouble(valueArea);
+        } catch (NumberFormatException e) {
+
+            refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle ( " + valueArea + " invalide ) ");
         }
+        try {
+            refIhm.afficheMessage("");
+            valueLongueurDouble = Double.parseDouble(valueLongueur);
+            refIhm.afficheResultatRectangle(String.valueOf(refWorker.calcLargeurFromRectangle(valueAreaDouble, valueLongueurDouble)));
+
+        } catch (NumberFormatException e) {
+            refIhm.afficheMessage("Veuillez entrer une valeur valide pour longueur du rectangle ( " + valueLongueur + " invalide ) ");
+        } catch (ArithmeticException e) {
+            refIhm.afficheMessage("Veuillez entrer une longueur, 0 non divisible. ");
+
+        }
+
     }
 
     public void setRefIhm(IIhmCtrl refIhm) {
