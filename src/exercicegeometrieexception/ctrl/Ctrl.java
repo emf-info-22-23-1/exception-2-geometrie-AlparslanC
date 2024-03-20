@@ -24,19 +24,18 @@ public class Ctrl implements ICtrlIhm {
 
     @Override
     public void selectCalcLargeur(String valueArea, String valueLongueur) {
-        double valueAreaDouble = 0.0;
         try{
-        valueAreaDouble = Double.parseDouble(valueArea);
-        }catch(Exception ex){
-            refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + valueArea + " invalide)");
-        }
-        double valueLongueurDouble = 0.0;
-        try{
-        valueLongueurDouble = Double.parseDouble(valueLongueur);
-        } catch (Exception ex){
-            refIhm.afficheMessage("Veuillez entrer une valeur valide pour l'aire du rectangle (" + ex + " invalide)");
-        }
+        double valueAreaDouble = Double.parseDouble(valueArea);
+        double valueLongueurDouble = Double.parseDouble(valueLongueur);
         refIhm.afficheResultatRectangle(String.valueOf(refWorker.calcLargeurFromRectangle(valueAreaDouble, valueLongueurDouble)));
+        }catch(Exception ex){
+            if (ex.getMessage().contains(valueArea)) {
+                refIhm.afficheMessage(
+                        "Veuillez entrer une valeur valide pour l'aire du rectangle ( " + valueArea + " invalide )");
+            } else if (ex.getMessage().contains(valueLongueur)) {
+                refIhm.afficheMessage("Veuillez entrer une valeur valide pour la longeur du rectangle ( " + valueLongueur + " invalide )");
+            }
+        }
     }
 
     public void setRefIhm(IIhmCtrl refIhm) {
